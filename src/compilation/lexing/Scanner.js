@@ -1,23 +1,27 @@
-const words = 'abcdefghijklmnopqrstuvwxyz';
+const letters = 'abcdefghijklmnopqrstuvwxyz';
 const numbers = '0123456789-.';
-const declaration = '+=-/*|.,(){}[]';
-const comparation = '=<!>';
-const boolWords = '&|';
+const mathLetters = '+-*/='
+const declaration = '.,(){}[]';
+const dot = ';';
+const logicalOperators = ['<', '>', '<=', '>=', '==', '!=', '||', '&&'];
+const reservedWords = ['inteiro', 'real', 'texto', 'caractere', 'logico', 'se', 'senao', 'enquanto', 'para', 'escreva', 'leia']
 
 const Scanner = ({ writtenCode }) => {
   let errors = [];
   let writtenCodeList = [];
 
   if (writtenCode && writtenCode.trim()) {
-    for (const c of writtenCode) { // Corrigido para iterar pelos caracteres
+    for (const c of writtenCode) { 
       if (
-        words.includes(c) ||
+        letters.includes(c) ||
         numbers.includes(c) ||
+        mathLetters.includes(c) ||
         declaration.includes(c) ||
-        comparation.includes(c) ||
-        boolWords.includes(c) ||
+        dot.includes(c) ||
         c === " " ||
-        c === "\n"
+        c === "\n" ||
+        logicalOperators.forEach(item => { if (item === c) return true; }) ||
+        reservedWords.forEach(word => { if (word === c) return true; })
       ) {
         continue;
       } else {
