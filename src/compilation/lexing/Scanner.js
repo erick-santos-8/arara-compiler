@@ -1,17 +1,17 @@
-const letters = 'abcdefghijklmnopqrstuvwxyz';
-const numbers = '0123456789-.';
-const mathLetters = '+-*/='
+const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const numbers = '0123456789';
+const mathLetters = '+-*/=';
 const declaration = '.,(){}[]';
 const dot = ';';
 const logicalOperators = ['<', '>', '<=', '>=', '==', '!=', '||', '&&'];
-const reservedWords = ['inteiro', 'real', 'texto', 'caractere', 'logico', 'se', 'senao', 'enquanto', 'para', 'escreva', 'leia']
+const reservedWords = ['inteiro', 'real', 'texto', 'caractere', 'logico', 'se', 'senao', 'enquanto', 'para', 'escreva', 'leia'];
 
 const Scanner = ({ writtenCode }) => {
   let errors = [];
   let writtenCodeList = [];
 
   if (writtenCode && writtenCode.trim()) {
-    for (const c of writtenCode) { 
+    for (const c of writtenCode) {
       if (
         letters.includes(c) ||
         numbers.includes(c) ||
@@ -20,8 +20,8 @@ const Scanner = ({ writtenCode }) => {
         dot.includes(c) ||
         c === " " ||
         c === "\n" ||
-        logicalOperators.forEach(item => { if (item === c) return true; }) ||
-        reservedWords.forEach(word => { if (word === c) return true; })
+        logicalOperators.some(op => writtenCode.includes(op)) ||
+        reservedWords.some(word => writtenCode.includes(word))
       ) {
         continue;
       } else {
