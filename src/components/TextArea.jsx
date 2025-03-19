@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Scanner from '../compilation/lexing/Scanner';
+import Parser from '../compilation/syntax/Parser';
 
 const TextArea = () => {
   const [writtenCode, setWrittenCode] = useState("");
@@ -10,16 +11,23 @@ const TextArea = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Passando o objeto esperado para o Scanner
+  
     const result = Scanner({ writtenCode });
-
-    if (result.errors.length > 0) { // Corrigido "lenght" para "length"
+  
+    if (result.errors.length > 0) {
       console.log("Erros:");
       console.log(result.errors);
     } else {
       console.log("Análise léxica:");
       console.log(result.writtenCodeList);
+      
+      try {
+        const syntaxParser = new Parser(result.writtenCodeList); // Correção aqui!
+        const ast = syntaxParser.parseProgram(); // Adicionando a análise sintática
+        console.log("AST gerada:", ast);
+      } catch (error) {
+        console.error("Erro de análise sintática:", error.message);
+      }
     }
   };
 
