@@ -22,9 +22,9 @@ const TextArea = () => {
       console.log(result.writtenCodeList);
       
       try {
-        const syntaxParser = new Parser(result.writtenCodeList); // Correção aqui!
-        const ast = syntaxParser.parseProgram(); // Adicionando a análise sintática
-        console.log("AST gerada:", ast);
+        const syntaxParser = new Parser(result.writtenCodeList);
+        const ast = syntaxParser.parseProgram();
+        console.log("AST:", ast);
       } catch (error) {
         console.error("Erro de análise sintática:", error.message);
       }
