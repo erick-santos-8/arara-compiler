@@ -32,7 +32,7 @@ const TextArea = () => {
   };
 
   return (
-    <div className="h-[640px] w-[1266px] flex items-center justify-center">
+    <div className="h-3/4 w-full md:h-[640px] md:w-[1266px] flex items-center justify-center">
       <form className="flex-col w-full h-full p-2 gap-5" onSubmit={handleSubmit}>
         <textarea
           onChange={(e) => setWrittenCode(e.target.value)}
