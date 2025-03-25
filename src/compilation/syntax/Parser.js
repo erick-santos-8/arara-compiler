@@ -46,7 +46,7 @@ class Parser {
       return this.parseAssignmentOrExpression();
     }
   }
-
+//TODO Leitura de strings, numeros reais e booleans.
   parseDeclaration() {
     let type = this.tokens[this.current - 1];
     let identifier = this.advance();
@@ -67,7 +67,7 @@ class Parser {
     if (identifier.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
       this.advance();
       if (this.match("=")) {
-        let value = this.parseExpression();
+        let value = this.parseComparison();
         if (!this.match(";")) {
           throw new Error("Esperado ';' no final da atribuição");
         }
@@ -78,7 +78,7 @@ class Parser {
     }
 
     // Utiliza atribuições simples
-    let expr = this.parseExpression();
+    let expr = this.parseComparison();
     if (!this.match(";")) throw new Error("Esperado ';' no final da expressão");
     return { type: "ExpressionStatement", expression: expr };
   }
@@ -105,10 +105,6 @@ class Parser {
     if (!this.match(")")) throw new Error("Esperado ')' após argumento de 'escreva'");
     if (!this.match(";")) throw new Error("Esperado ';' no final de 'escreva'");
     return { type: "PrintStatement", argument };
-  }
-
-  parseExpression() {
-    return this.parseComparison();
   }
 
   parseComparison() {
@@ -150,7 +146,7 @@ class Parser {
       return { type: "Identifier", name: token };
     }
     if (token === "(") {
-      let expr = this.parseExpression();
+      let expr = this.parseComparison();
       if (!this.match(")")) {
         throw new Error("Esperado ')' para fechar a expressão");
       }
