@@ -33,7 +33,7 @@ const Scanner = ({ writtenCode }) => {
     if (errors.length === 0) {
       // Melhorando a regex para capturar tokens de forma mais robusta
       writtenCodeList = writtenCode
-      .split(/(\s+|==|<=|>=|!=|[\(\)\{\}\[\]\.;\=\+\-\*\/\<\>])/)
+      .split(/(\s+|==|!=|<=|>=|&&|\|\||[()\[\]{};=+\-*/<>])/)
       .filter((token) => token.trim()); // Remove espaços em branco e tokens vazios
       return { writtenCodeList, errors };
     }

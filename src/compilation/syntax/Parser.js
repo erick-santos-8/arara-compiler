@@ -50,13 +50,18 @@ class Parser {
   parseDeclaration() {
     let type = this.tokens[this.current - 1];
     let identifier = this.advance();
+    let initializer = null;
     if (!identifier.match(/^[a-zA-Z_][a-zA-Z0-9_]*$/)) {
       throw new Error(`Identificador inválido: ${identifier}`);
+    }
+
+    if (this.match("=")) {
+      initializer = this.parseComparison(); 
     }
     if (!this.match(";")) {
       throw new Error("Esperado ';' após declaração de variável");
     }
-    return { type: "Declaration", varType: type, name: identifier };
+    return { type: "Declaration", varType: type, name: identifier, initializer };
   }
 
   // Verifica se é uma atribuição numérica
